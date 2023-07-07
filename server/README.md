@@ -13,10 +13,7 @@ A basic go/gin API for managing user data
 
 ## TODOS
 
-* Create a Signup -> Data Creation endpoint
-* Create a Signed in -> modify data endpoint
-* Create an Admin Account
-  * All User Data Endpoint
+* Create an Admin Account to retrieve all user data (`GET /users`)
 
 ## Running
 

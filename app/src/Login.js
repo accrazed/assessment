@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { Navigate, json, useNavigate } from 'react-router-dom'
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export default function Login({ setCookie }) {
 	const [username, setUsername] = useState('')
@@ -17,7 +17,8 @@ export default function Login({ setCookie }) {
 		}).then((resp) => {
 			if (resp.ok) {
 				resp.json().then((json) => {
-					setCookie('UserID', json.userID)
+					console.log(json)
+					setCookie('UserID', json.UserID)
 					navigate('/home')
 				})
 			}

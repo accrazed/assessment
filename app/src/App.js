@@ -12,7 +12,7 @@ function App() {
 			<Router>
 				<Routes>
 					<Route exact path="/" element={<Login setCookie={setCookie} />} />
-					<Route exact path="/" element={<Home userID={cookie.UserID} />} />
+					<Route exact path="/home" element={<Home userID={cookie.UserID} />} />
 				</Routes>
 			</Router>
 		</div>

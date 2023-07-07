@@ -9,6 +9,34 @@ import (
 	"github.com/google/uuid"
 )
 
+func (cm *ClientManager) HandleLogin(c *gin.Context) {
+	type HandleLoginInput struct {
+		Username string `json:"username"`
+		Password string `json:"password"`
+	}
+	body := HandleLoginInput{}
+	if err := c.ShouldBindJSON(&body); err != nil {
+		c.Status(http.StatusBadRequest)
+		// TODO: add logger
+		fmt.Println(err)
+		return
+	}
+
+	row := cm.db.QueryRow("SELECT Id FROM Users WHERE Username=? AND Password=?", body.Username, body.Password)
+	userID := ""
+	if err := row.Scan(&userID); err != nil {
+		c.Status(http.StatusInternalServerError)
+		// TODO: add logger
+		fmt.Println(err)
+		return
+	}
+
+	// TODO: Normally, I'd create a jwt key and set a cookie for the client making the request
+	// this is an incredibly insecure workaround to show a proof-of-concept, must change after
+
+	c.JSON(http.StatusOK, gin.H{"UserID": userID})
+}
+
 func (cm *ClientManager) HandlePostUser(c *gin.Context) {
 	body := models.User{}
 	if err := c.ShouldBindJSON(&body); err != nil {
